@@ -1,33 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import {Container , CssBaseline , GlobalStyles ,Grid2 } from "@mui/material"
 
-function App() {
-  const [count, setCount] = useState(0)
+//Mock data
+import mockData from "./data.json"
 
+// Components
+import Header from './components/Header'
+import FilterBar from './components/FilterBar'
+import AssesmentCard from './components/AssesmentCard'
+import CustomPagination from './components/CustomPagination'
+import Footer from './components/Footer'
+
+const App = () => {
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <CssBaseline /> 
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: "whitesmoke"}
+        }}
+      />
+      <Container sx={{ display: 'flex', gap: '20px', flexDirection: 'column' , padding:"20px" }}>
+        <Header/>
+        <FilterBar/>
+        <Grid2 container spacing={3}  justifyContent={{ xs:"center" , sm:"center" ,  md: "space-between", lg: "space-between" , xl:"space-between" }}>
+
+            {mockData.map((item, index) => (
+                <AssesmentCard key={index} data={item} />
+            ))}
+        </Grid2>
+        <CustomPagination/>
+      </Container>
+
+      <Footer/>
     </>
   )
 }
